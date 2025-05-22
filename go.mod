@@ -1,6 +1,8 @@
 module github.com/alibaba/opentelemetry-go-auto-instrumentation
 
-go 1.23.0
+go 1.22.0
+
+toolchain go1.22.5
 
 replace github.com/alibaba/opentelemetry-go-auto-instrumentation => ../opentelemetry-go-auto-instrumentation
 
