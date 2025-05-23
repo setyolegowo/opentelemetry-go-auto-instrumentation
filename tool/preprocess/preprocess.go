@@ -103,7 +103,7 @@ var fixedDeps = []struct {
 		"v1.35.0", true, false},
 	{"go.opentelemetry.io/otel/exporters/zipkin",
 		"v1.35.0", true, false},
-	{"go.opentelemetry.io/otel/exporters/zipkin",
+	{"go.opentelemetry.io/contrib/propagators/b3",
 		"v1.35.0", true, false},
 	{"go.opentelemetry.io/otel/metric",
 		"v1.35.0", true, false},
