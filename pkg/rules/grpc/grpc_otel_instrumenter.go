@@ -15,12 +15,15 @@
 package grpc
 
 import (
-	"fmt"
+	"os"
+	"strings"
+
+	"go.opentelemetry.io/otel/attribute"
+	semconv "go.opentelemetry.io/otel/semconv/v1.30.0"
+
 	"github.com/alibaba/loongsuite-go-agent/pkg/inst-api/utils"
 	"github.com/alibaba/loongsuite-go-agent/pkg/inst-api/version"
 	"go.opentelemetry.io/otel/sdk/instrumentation"
-	"os"
-	"strings"
 
 	"github.com/alibaba/loongsuite-go-agent/pkg/inst-api-semconv/instrumenter/rpc"
 	"github.com/alibaba/loongsuite-go-agent/pkg/inst-api/instrumenter"
@@ -72,13 +75,13 @@ type grpcStatusCodeExtractor[REQUEST grpcRequest, RESPONSE grpcResponse] struct 
 
 func (g grpcStatusCodeExtractor[REQUEST, RESPONSE]) Extract(span trace.Span, request grpcRequest, response grpcResponse, err error) {
 	statusCode := response.statusCode
-	if statusCode != 200 {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, err.Error())
-		} else {
-			span.SetStatus(codes.Error, fmt.Sprintf("wrong grpc status code %d", statusCode))
-		}
+	span.SetAttributes(attribute.KeyValue{
+		Key:   semconv.HTTPResponseStatusCodeKey,
+		Value: attribute.IntValue(statusCode),
+	})
+	if statusCode != 200 && err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 	}
 }
 
