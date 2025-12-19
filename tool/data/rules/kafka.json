@@ -6,14 +6,5 @@
   "OnEnter": "producerWriteMessagesOnEnter",
   "OnExit": "producerWriteMessagesOnExit",
   "Path": "github.com/alibaba/loongsuite-go-agent/pkg/rules/segmentio-kafka-go"
-},
-  {
-    "Version": "[0.4.0,)",
-    "ImportPath": "github.com/segmentio/kafka-go",
-    "Function": "ReadMessage",
-    "ReceiverType": "\\*Reader",
-    "OnEnter": "consumerReadMessageOnEnter",
-    "OnExit": "consumerReadMessageOnExit",
-    "Path": "github.com/alibaba/loongsuite-go-agent/pkg/rules/segmentio-kafka-go"
-  }
+}
 ]
